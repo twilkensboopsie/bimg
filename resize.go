@@ -171,6 +171,9 @@ func transformImage(image *C.VipsImage, o Options, shrink int, residual float64)
 		}
 	}
 
+        // More hacks
+	o.Force = false
+
 	residualx, residualy := residual, residual
 	if o.Force {
 		residualx = float64(o.Width) / float64(image.Xsize)
@@ -188,6 +191,9 @@ func transformImage(image *C.VipsImage, o Options, shrink int, residual float64)
 		o.Crop = false
 		o.Embed = false
 	}
+
+        // Hack for now
+	o.Embed = false
 
 	image, err = extractOrEmbedImage(image, o)
 	if err != nil {
